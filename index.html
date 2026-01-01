@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genie Voice Studio Pro - Revolusi Suara AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#0B0B15',
+                            800: '#13132B',
+                            700: '#1C1C3D',
+                        },
+                        primary: '#6366F1', // Indigo
+                        accent: '#06b6d4', // Cyan
+                        glow: '#8b5cf6', // Violet
+                    },
+                    backgroundImage: {
+                        'glass-gradient': 'linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)',
+                        'hero-glow': 'radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, rgba(11, 11, 21, 0) 70%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B0B15;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(19, 19, 43, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.3);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #22d3ee, #8b5cf6, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        .glow-blob { animation: pulse-glow 8s infinite; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0B15; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4B5563; 
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-white">
+
+    <!-- Decorative Background Globs -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] glow-blob"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] glow-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute top-[40%] left-[50%] transform -translate-x-1/2 w-[400px] h-[400px] bg-glow/15 rounded-full blur-[100px] glow-blob" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
+        <div class="glass-panel mx-auto max-w-7xl px-6 py-4 mt-4 rounded-2xl flex justify-between items-center md:mx-6 lg:mx-auto border border-white/10">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-glow flex items-center justify-center">
+                    <i class="fas fa-microphone-lines text-white text-sm"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight">Genie<span class="text-accent font-light">Studio</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                <a href="#features" class="hover:text-white transition-colors">Fitur</a>
+                <a href="#demo" class="hover:text-white transition-colors">Demo</a>
+                <a href="#pricing" class="hover:text-white transition-colors">Harga</a>
+            </div>
+            <!-- Login button removed here -->
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (ATTENTION) -->
+    <section class="relative pt-40 pb-20 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 animate-fade-in-up">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span class="text-xs font-semibold tracking-wide text-gray-300 uppercase">Powered by Google Gemini</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                Suara AI, Terdengar <br>
+                <!-- Change: Solid blue/accent color instead of gradient -->
+                <span class="text-accent">Lebih Natural.</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Platform <strong>All-in-One</strong> untuk konten kreator. Ubah teks, gambar, dan ide menjadi audio profesional dalam hitungan detik. Tanpa suara robot, tanpa studio mahal.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                <!-- Change: Solid bg-accent color, updated shadow to match -->
+                <a href="#pricing" class="group relative px-8 py-4 bg-accent hover:bg-cyan-400 rounded-full font-bold text-white shadow-lg shadow-accent/25 hover:shadow-accent/50 transition-all overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-2">
+                        Akses Sekarang
+                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                </a>
+                <a href="#demo" class="px-8 py-4 rounded-full border border-white/20 text-white hover:bg-white/5 transition-all flex items-center gap-2">
+                    <i class="fas fa-play text-accent"></i>
+                    Dengar Contoh
+                </a>
+            </div>
+
+            <!-- Hero Image / Dashboard Mockup -->
+            <div class="relative max-w-5xl mx-auto mt-12 float-anim">
+                <div class="absolute -inset-1 bg-gradient-to-r from-accent via-purple-500 to-pink-500 rounded-2xl blur opacity-30"></div>
+                <div class="relative glass-panel rounded-2xl p-2 md:p-4 overflow-hidden">
+                    <!-- 
+                        GANTI LINK DI BAWAH INI (src="...") DENGAN LINK GAMBAR GITHUB ANDA 
+                        Rekomendasi ukuran: 1920x1080px
+                    -->
+                    <img 
+                        src="https://placehold.co/1920x1080/13132B/06b6d4?text=Dashboard+Genie+Voice+Studio+Pro+(1920x1080)" 
+                        alt="Dashboard Genie Voice Studio Pro" 
+                        class="w-full h-auto rounded-lg shadow-2xl border border-white/5"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: CARA KERJA (WORKFLOW) -->
+    <section id="workflow" class="py-20 px-6 relative border-b border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Mudah & Cepat</span>
+                <h2 class="text-3xl md:text-5xl font-bold">Cara Kerja</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
+                <!-- Connecting Line (Desktop Only) -->
+                <div class="hidden lg:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-transparent via-accent/30 to-transparent -z-10"></div>
+
+                <!-- Step 1 -->
+                <div class="glass-card p-6 rounded-2xl relative group hover:bg-white/5 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-dark-800 border border-accent/30 flex items-center justify-center mb-4 text-xl font-bold text-accent shadow-[0_0_15px_rgba(6,182,212,0.3)] relative z-10">1</div>
+                    <h3 class="text-xl font-bold mb-2">Pilih Mode Fitur</h3>
+                    <p class="text-sm text-gray-400">Tulisan ke Suara, Produk Ke Suara, Gambar ke Suara, atau Suara ke Tulisan.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="glass-card p-6 rounded-2xl relative group hover:bg-white/5 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-dark-800 border border-accent/30 flex items-center justify-center mb-4 text-xl font-bold text-accent shadow-[0_0_15px_rgba(6,182,212,0.3)] relative z-10">2</div>
+                    <h3 class="text-xl font-bold mb-2">Pilih Model Suara</h3>
+                    <p class="text-sm text-gray-400">Pilih dari 30 model suara natural orang Indonesia (Pria/Wanita).</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-card p-6 rounded-2xl relative group hover:bg-white/5 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-dark-800 border border-accent/30 flex items-center justify-center mb-4 text-xl font-bold text-accent shadow-[0_0_15px_rgba(6,182,212,0.3)] relative z-10">3</div>
+                    <h3 class="text-xl font-bold mb-2">Pilih Ekspresi Emosi</h3>
+                    <p class="text-sm text-gray-400">Sesuaikan nada bicara (Senang, Serius, Berbisik, dll).</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="glass-card p-6 rounded-2xl relative group hover:bg-white/5 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-dark-800 border border-accent/30 flex items-center justify-center mb-4 text-xl font-bold text-accent shadow-[0_0_15px_rgba(6,182,212,0.3)] relative z-10">4</div>
+                    <h3 class="text-xl font-bold mb-2">Atur Kecepatan & Pitch</h3>
+                    <p class="text-sm text-gray-400">Kendali penuh atas tempo dan tinggi rendahnya suara.</p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="glass-card p-6 rounded-2xl relative group hover:bg-white/5 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-dark-800 border border-accent/30 flex items-center justify-center mb-4 text-xl font-bold text-accent shadow-[0_0_15px_rgba(6,182,212,0.3)] relative z-10">5</div>
+                    <h3 class="text-xl font-bold mb-2">Hasilkan Suara</h3>
+                    <p class="text-sm text-gray-400">Klik tombol hasilkan dan AI akan memproses suara secara kilat.</p>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="glass-card p-6 rounded-2xl relative group hover:bg-white/5 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-dark-800 border border-accent/30 flex items-center justify-center mb-4 text-xl font-bold text-accent shadow-[0_0_15px_rgba(6,182,212,0.3)] relative z-10">6</div>
+                    <h3 class="text-xl font-bold mb-2">Audio Siap Pakai!</h3>
+                    <p class="text-sm text-gray-400">Unduh hasilnya dan integrasikan langsung ke konten Anda.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM & SOLUTION (INTEREST) -->
+    <section class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Mengapa Terjebak di Masa Lalu?</h2>
+                <p class="text-gray-400">Berhenti membuang waktu dan biaya untuk metode lama.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- The Old Way -->
+                <div class="glass-card p-8 rounded-3xl border-l-4 border-red-500/50">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">
+                            <i class="fas fa-times text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Cara Lama</h3>
+                    </div>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-money-bill-wave mt-1 text-red-500/50"></i>
+                            <span>Mahal. Sewa talent voice over jutaan rupiah per menit.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-robot mt-1 text-red-500/50"></i>
+                            <span>Suara TTS gratisan terdengar kaku & robotik.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-clock mt-1 text-red-500/50"></i>
+                            <span>Menunggu hasil rekaman berhari-hari.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-brain mt-1 text-red-500/50"></i>
+                            <span>Pusing memikirkan script iklan sendiri.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- The Genie Way -->
+                <div class="glass-card p-8 rounded-3xl border-l-4 border-accent relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-accent/20 blur-[60px] rounded-full group-hover:bg-accent/30 transition-all"></div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                            <i class="fas fa-check text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Genie Voice Studio Pro</h3>
+                    </div>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-coins mt-1 text-accent"></i>
+                            <span>Hemat 90% biaya produksi. Bayar sekali, pakai sepuasnya.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-smile mt-1 text-accent"></i>
+                            <span>Emosi nyata. 100% natural sulit dibedakan dari manusia.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-bolt mt-1 text-accent"></i>
+                            <span>Hasil instan dalam hitungan detik.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-magic mt-1 text-accent"></i>
+                            <span>AI menuliskan script & narasi otomatis untuk Anda.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: COCOK UNTUK SIAPA (TARGET AUDIENCE) -->
+    <section id="target-audience" class="py-20 px-6 relative border-t border-white/5 bg-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Target Pengguna</span>
+                <h2 class="text-3xl md:text-5xl font-bold">Cocok Untuk Siapa?</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Target 1: Content Creator -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:bg-white/10 transition-colors">
+                    <div class="w-16 h-16 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-pink-500/10">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-white mb-2">Content Creator</h3>
+                    <p class="text-sm text-gray-400">Video, Podcast, Reels, TikTok</p>
+                </div>
+
+                <!-- Target 2: Pebisnis & UMKM -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:bg-white/10 transition-colors">
+                    <div class="w-16 h-16 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/10">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-white mb-2">Pebisnis & UMKM</h3>
+                    <p class="text-sm text-gray-400">Owner Bisnis, Toko Online</p>
+                </div>
+
+                <!-- Target 3: Marketing & Edukasi -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:bg-white/10 transition-colors">
+                    <div class="w-16 h-16 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-orange-500/10">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-white mb-2">Marketing & Edukasi</h3>
+                    <p class="text-sm text-gray-400">Guru, Dosen, Digital Marketer</p>
+                </div>
+
+                <!-- Target 4: Siapa Pun -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:bg-white/10 transition-colors">
+                    <div class="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-green-500/10">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-white mb-2">Siapa Pun</h3>
+                    <p class="text-sm text-gray-400">Yang butuh audio rutin & cepat</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES (DESIRE) -->
+    <section id="features" class="py-20 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Fitur Utama</span>
+                <h2 class="text-3xl md:text-5xl font-bold">4 Kekuatan Super dalam 1 Alat</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass-card p-6 rounded-2xl group hover:bg-white/5">
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-microphone-alt text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Text-to-Speech</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Ubah tulisan jadi suara. Pilih dari puluhan karakter: Ceria, Serius, hingga Berbisik.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card p-6 rounded-2xl group hover:bg-white/5">
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-pen-fancy text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">AI Copywriting</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Tidak ada ide naskah? Biarkan AI menulis script iklan high-converting untuk Anda.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card p-6 rounded-2xl group hover:bg-white/5">
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mb-6 shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-eye text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Image-to-Audio</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Upload foto produk, Genie akan menganalisa dan membuat narasi audio otomatis.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="glass-card p-6 rounded-2xl group hover:bg-white/5">
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center mb-6 shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-file-audio text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Audio Transcription</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Punya rekaman rapat? Ubah menjadi teks akurat dalam sekejap.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE DEMO / USE CASES -->
+    <section id="demo" class="py-20 px-6 bg-black/20">
+        <div class="max-w-5xl mx-auto">
+            <div class="glass-panel rounded-3xl p-8 md:p-12 flex flex-col md:flex-row gap-10 items-center">
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-3xl font-bold mb-4">Dengarkan Perbedaannya</h3>
+                    <p class="text-gray-400 mb-8">
+                        Teknologi yang dipakai Genie Voice Studio Pro menangkap nuansa emosi manusia. Jeda napas, intonasi naik turun, semuanya ada.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        
+                        <!-- Audio Player 1: Iklan Kopi -->
+                        <!-- GANTI 'src' DI BAWAH DENGAN LOKASI FILE AUDIO ANDA -->
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-accent/50 transition group">
+                            <div class="flex items-center gap-4">
+                                <button onclick="toggleAudio('audio1')" id="btn-audio1" class="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-accent/20">
+                                    <i class="fas fa-play ml-1 text-sm"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm font-bold text-white"><i class="fas fa-ad mr-2 text-accent"></i>Iklan Kopi (Ceria)</span>
+                                        <span class="text-xs text-gray-500 font-mono" id="time-audio1">00:00</span>
+                                    </div>
+                                    <!-- Progress Bar Container -->
+                                    <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden cursor-pointer relative" onclick="seekAudio(event, 'audio1')">
+                                        <!-- Background track -->
+                                        <div class="absolute inset-0 bg-gray-700"></div>
+                                        <!-- Progress fill -->
+                                        <div id="progress-audio1" class="absolute left-0 top-0 h-full bg-accent w-0 transition-all duration-100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Masukkan file audio Anda di sini -->
+                            <audio id="audio1" src="assets/audio/sample-iklan.mp3" ontimeupdate="updateProgress('audio1')" onended="resetAudio('audio1')"></audio>
+                        </div>
+
+                        <!-- Audio Player 2: Audiobook -->
+                        <!-- GANTI 'src' DI BAWAH DENGAN LOKASI FILE AUDIO ANDA -->
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-purple-500/50 transition group">
+                            <div class="flex items-center gap-4">
+                                <button onclick="toggleAudio('audio2')" id="btn-audio2" class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-purple-500/20">
+                                    <i class="fas fa-play ml-1 text-sm"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm font-bold text-white"><i class="fas fa-book mr-2 text-purple-400"></i>Audiobook (Storytelling)</span>
+                                        <span class="text-xs text-gray-500 font-mono" id="time-audio2">00:00</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden cursor-pointer relative" onclick="seekAudio(event, 'audio2')">
+                                        <div class="absolute inset-0 bg-gray-700"></div>
+                                        <div id="progress-audio2" class="absolute left-0 top-0 h-full bg-purple-500 w-0 transition-all duration-100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Masukkan file audio Anda di sini -->
+                            <audio id="audio2" src="assets/audio/sample-story.mp3" ontimeupdate="updateProgress('audio2')" onended="resetAudio('audio2')"></audio>
+                        </div>
+
+                        <!-- Audio Player 3: Narasi Dokumenter -->
+                        <!-- GANTI 'src' DI BAWAH DENGAN LOKASI FILE AUDIO ANDA -->
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-blue-500/50 transition group">
+                            <div class="flex items-center gap-4">
+                                <button onclick="toggleAudio('audio3')" id="btn-audio3" class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-blue-500/20">
+                                    <i class="fas fa-play ml-1 text-sm"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm font-bold text-white"><i class="fas fa-film mr-2 text-blue-400"></i>Narasi Dokumenter (Serius)</span>
+                                        <span class="text-xs text-gray-500 font-mono" id="time-audio3">00:00</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden cursor-pointer relative" onclick="seekAudio(event, 'audio3')">
+                                        <div class="absolute inset-0 bg-gray-700"></div>
+                                        <div id="progress-audio3" class="absolute left-0 top-0 h-full bg-blue-500 w-0 transition-all duration-100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Masukkan file audio Anda di sini -->
+                            <audio id="audio3" src="assets/audio/sample-doc.mp3" ontimeupdate="updateProgress('audio3')" onended="resetAudio('audio3')"></audio>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2 relative">
+                    <!-- Visualizer Art -->
+                    <div class="aspect-square rounded-full bg-gradient-to-br from-gray-900 to-black border border-white/10 flex items-center justify-center relative overflow-hidden shadow-2xl shadow-accent/20">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accent/20 to-transparent blur-3xl animate-spin-slow"></div>
+                        <!-- Central Circle -->
+                        <div class="w-32 h-32 rounded-full bg-white/5 backdrop-blur-md border border-white/20 flex items-center justify-center z-10 relative">
+                            <i class="fas fa-play text-4xl text-white ml-2"></i>
+                            
+                            <!-- Pulsing Rings -->
+                            <div class="absolute inset-0 rounded-full border border-accent/30 animate-ping"></div>
+                        </div>
+                        
+                        <!-- Sound Waves -->
+                        <div class="absolute bottom-10 flex items-end gap-1 h-20 opacity-50">
+                             <div class="w-1 bg-accent h-4 animate-[pulse_0.5s_ease-in-out_infinite]"></div>
+                             <div class="w-1 bg-accent h-8 animate-[pulse_0.7s_ease-in-out_infinite]"></div>
+                             <div class="w-1 bg-accent h-12 animate-[pulse_0.4s_ease-in-out_infinite]"></div>
+                             <div class="w-1 bg-accent h-6 animate-[pulse_0.6s_ease-in-out_infinite]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: YOUTUBE SHORTS SHOWCASE -->
+    <section id="showcase" class="py-20 px-6 relative">
+        <!-- Background Glow Effect -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Showcase</span>
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Hasil Viral di Media Sosial</h2>
+                <p class="text-gray-400">Lihat bagaimana kreator menggunakan suara Genie untuk konten Short mereka.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
+                
+                <!-- Short 1 -->
+                <div class="glass-card p-2 rounded-3xl w-full max-w-[320px] border border-white/10 group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="aspect-[9/16] w-full rounded-2xl overflow-hidden bg-black relative shadow-2xl">
+                        <!-- GANTI 'src' DENGAN LINK EMBED YOUTUBE SHORTS ANDA -->
+                        <!-- Contoh Link Embed: https://www.youtube.com/embed/VIDEO_ID -->
+                        <iframe 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=1&rel=0" 
+                            title="Genie Showcase 1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Short 2 -->
+                <div class="glass-card p-2 rounded-3xl w-full max-w-[320px] border border-white/10 group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="aspect-[9/16] w-full rounded-2xl overflow-hidden bg-black relative shadow-2xl">
+                         <!-- GANTI 'src' DENGAN LINK EMBED YOUTUBE SHORTS ANDA -->
+                        <iframe 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=1&rel=0" 
+                            title="Genie Showcase 2" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Short 3 -->
+                <div class="glass-card p-2 rounded-3xl w-full max-w-[320px] border border-white/10 group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="aspect-[9/16] w-full rounded-2xl overflow-hidden bg-black relative shadow-2xl">
+                         <!-- GANTI 'src' DENGAN LINK EMBED YOUTUBE SHORTS ANDA -->
+                        <iframe 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=1&rel=0" 
+                            title="Genie Showcase 3" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: SOCIAL PROOF (TESTIMONIALS) -->
+    <section id="testimonials" class="py-20 px-6 relative bg-white/5">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+             <div class="text-center mb-16">
+                <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Testimoni</span>
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Apa Kata Kreator?</h2>
+                <p class="text-gray-400">Bergabung dengan ribuan kreator sukses yang telah beralih ke Genie.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="glass-card p-8 rounded-2xl relative group hover:bg-white/5 transition-colors">
+                    <div class="flex items-center gap-4 mb-6 mt-2">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 overflow-hidden border border-white/20">
+                            <img src="https://placehold.co/100x100/1C1C3D/ffffff?text=BS" alt="Budi S" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Budi Santoso</h4>
+                            <p class="text-xs text-accent uppercase tracking-wide font-semibold">YouTuber Gaming</p>
+                        </div>
+                    </div>
+                    <div class="flex text-yellow-400 text-xs mb-4 gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic leading-relaxed">"Gila sih, dulu bayar voice over mahal banget. Pake Genie langsung jadi dalam hitungan detik. Suaranya natural parah, penonton channel saya gak ada yang sadar kalo ini AI!"</p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass-card p-8 rounded-2xl relative group hover:bg-white/5 transition-colors">
+                    <div class="flex items-center gap-4 mb-6 mt-2">
+                         <div class="w-12 h-12 rounded-full bg-gray-700 overflow-hidden border border-white/20">
+                            <img src="https://placehold.co/100x100/5b21b6/ffffff?text=SA" alt="Siti A" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Siti Aminah</h4>
+                            <p class="text-xs text-purple-400 uppercase tracking-wide font-semibold">TikTok Affiliate</p>
+                        </div>
+                    </div>
+                    <div class="flex text-yellow-400 text-xs mb-4 gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic leading-relaxed">"Fitur Image-to-Audio nya juara banget! Tinggal upload foto produk, script sama suara langsung jadi otomatis. Sangat membantu buat kejar tayang konten harian. Omzet naik drastis."</p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                 <div class="glass-card p-8 rounded-2xl relative group hover:bg-white/5 transition-colors">
+                    <div class="flex items-center gap-4 mb-6 mt-2">
+                         <div class="w-12 h-12 rounded-full bg-gray-700 overflow-hidden border border-white/20">
+                            <img src="https://placehold.co/100x100/be185d/ffffff?text=DK" alt="Dimas K" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Dimas Kurnia</h4>
+                            <p class="text-xs text-pink-400 uppercase tracking-wide font-semibold">Podcaster Horror</p>
+                        </div>
+                    </div>
+                    <div class="flex text-yellow-400 text-xs mb-4 gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic leading-relaxed">"Ekspresi 'Berbisik'-nya dapet banget feel-nya. Pendengar podcast horror gue sampe merinding dan gak percaya kalo naratornya itu AI. Sangat recommended buat storyteller!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION (ACTION) -->
+    <section id="pricing" class="py-24 px-6 relative overflow-hidden">
+        <!-- Background Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">Mulai Revolusi Konten Anda</h2>
+            <p class="text-xl text-gray-300 mb-10">
+                Jangan biarkan konten Anda tenggelam. Gunakan Genie Voice Studio Pro dan buat audiens Anda terpukau.
+            </p>
+
+            <div class="glass-card p-1 rounded-3xl inline-block bg-gradient-to-r from-accent via-white to-purple-500">
+                <div class="bg-dark-900 rounded-[22px] p-8 md:p-12 relative overflow-hidden">
+                     <div class="absolute top-0 right-0 bg-accent text-dark-900 font-bold text-xs px-3 py-1 rounded-bl-lg">PROMO TERBATAS</div>
+                     
+                     <div class="flex flex-col md:flex-row items-center gap-8 justify-center">
+                        <div class="text-left">
+                            <p class="text-gray-400 text-sm line-through">Rp 359.000 / bulan</p>
+                            <h3 class="text-5xl font-bold text-white mb-2">Rp 99 ribu</h3>
+                            <p class="text-accent font-medium">LIFETIME ACCESS (Sekali Bayar)</p>
+                        </div>
+                        <div class="h-12 w-[1px] bg-white/10 hidden md:block"></div>
+                        <ul class="text-left space-y-2 text-sm text-gray-300">
+                            <li><i class="fas fa-check text-green-400 mr-2"></i> Unlimited Generate</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i> Fitur Text-to-Audio</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i> Fitur Produk-to-Audio</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i> Fitur Image-to-Audio</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i> Fitur Audio-to-Text</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i> Commercial License</li>
+                        </ul>
+                     </div>
+
+                     <div class="mt-8 max-w-md mx-auto">
+                         <!-- BONUS CARD -->
+                         <div class="bg-white/5 border border-accent/20 rounded-xl p-5 mb-6 text-left relative overflow-hidden group">
+                             <!-- Shine Effect -->
+                             <div class="absolute top-0 right-0 -mr-4 -mt-4 w-20 h-20 bg-accent/20 rounded-full blur-[30px] group-hover:bg-accent/30 transition-all"></div>
+                             
+                             <h4 class="text-accent font-bold text-sm mb-4 uppercase tracking-wide flex items-center gap-2">
+                                <i class="fas fa-gift animate-bounce"></i> Bonus Spesial Hari Ini
+                             </h4>
+                             
+                             <div class="space-y-4">
+                                <!-- Bonus 1 -->
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 flex items-center justify-center shrink-0">
+                                        <i class="fas fa-play-circle"></i>
+                                    </div>
+                                    <div>
+                                        <span class="block font-bold text-white text-sm">Video Tutorial</span>
+                                        <span class="text-xs text-gray-400">Panduan lengkap cara pakai Tools.</span>
+                                    </div>
+                                </div>
+                                <!-- Bonus 2 -->
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div>
+                                        <span class="block font-bold text-white text-sm">E-book Premium</span>
+                                        <span class="text-xs text-gray-400">19 Formula Jurus Closing.</span>
+                                    </div>
+                                </div>
+                             </div>
+                         </div>
+
+                         <button class="w-full md:w-auto px-10 py-4 bg-[#FAA200] text-black font-bold rounded-full hover:scale-105 transition-transform shadow-lg shadow-orange-500/20">
+                             Dapatkan Akses Sekarang <i class="fas fa-arrow-right ml-2"></i>
+                         </button>
+                         <p class="text-xs text-gray-500 mt-4">Garansi uang kembali 30 hari.</p>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: FAQ (PERTANYAAN UMUM) -->
+    <section id="faq" class="py-20 px-6 relative">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Dukungan</span>
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Pertanyaan Umum</h2>
+                <p class="text-gray-400">Hal yang sering ditanyakan oleh pengguna baru.</p>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- FAQ Item 1 -->
+                <details class="group glass-card rounded-2xl p-1 [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-xl p-4 text-white hover:bg-white/5 transition-colors">
+                        <h3 class="font-bold text-lg">Apakah benar cukup sekali bayar (tanpa berlangganan)?</h3>
+                        <div class="white-space-nowrap shrink-0 rounded-full border border-white/10 bg-white/5 p-1.5 text-accent sm:p-3 group-open:bg-accent group-open:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5 shrink-0 transition duration-300 group-open:-rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 pb-4 pt-2 text-gray-400 leading-relaxed">
+                        <p>Ya, benar! Khusus untuk promo peluncuran ini, kami menawarkan lisensi Lifetime (Akses Seumur Hidup). Anda cukup membayar satu kali dan bisa menggunakan Genie Voice Studio Pro selamanya tanpa biaya langganan bulanan atau tahunan.</p>
+                    </div>
+                </details>
+
+                <!-- FAQ Item 2 -->
+                <details class="group glass-card rounded-2xl p-1 [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-xl p-4 text-white hover:bg-white/5 transition-colors">
+                        <h3 class="font-bold text-lg">Apakah boleh dipakai untuk komersial (YouTube/Iklan)?</h3>
+                        <div class="white-space-nowrap shrink-0 rounded-full border border-white/10 bg-white/5 p-1.5 text-accent sm:p-3 group-open:bg-accent group-open:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5 shrink-0 transition duration-300 group-open:-rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 pb-4 pt-2 text-gray-400 leading-relaxed">
+                        <p>Sangat boleh. Lisensi yang Anda dapatkan adalah <strong>Commercial License Full</strong>. Anda bebas menggunakan hasil audio untuk konten YouTube monetisasi, Iklan Facebook/TikTok, Audiobook yang dijual, atau proyek klien tanpa perlu membayar royalti tambahan.</p>
+                    </div>
+                </details>
+
+                <!-- FAQ Item 3 -->
+                <details class="group glass-card rounded-2xl p-1 [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-xl p-4 text-white hover:bg-white/5 transition-colors">
+                        <h3 class="font-bold text-lg">Apakah perlu spesifikasi komputer tinggi?</h3>
+                        <div class="white-space-nowrap shrink-0 rounded-full border border-white/10 bg-white/5 p-1.5 text-accent sm:p-3 group-open:bg-accent group-open:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5 shrink-0 transition duration-300 group-open:-rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 pb-4 pt-2 text-gray-400 leading-relaxed">
+                        <p>Tidak sama sekali. Genie Voice Studio Pro berbasis Web (Cloud-based). Artinya, semua proses berat dilakukan di server kami. Anda bisa mengaksesnya lancar melalui Laptop standar, Tablet, bahkan Smartphone Anda selama ada koneksi internet.</p>
+                    </div>
+                </details>
+
+                <!-- FAQ Item 4 -->
+                <details class="group glass-card rounded-2xl p-1 [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-xl p-4 text-white hover:bg-white/5 transition-colors">
+                        <h3 class="font-bold text-lg">Apakah ada garansi uang kembali?</h3>
+                        <div class="white-space-nowrap shrink-0 rounded-full border border-white/10 bg-white/5 p-1.5 text-accent sm:p-3 group-open:bg-accent group-open:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5 shrink-0 transition duration-300 group-open:-rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 pb-4 pt-2 text-gray-400 leading-relaxed">
+                        <p>Ya, kami memberikan Garansi Uang Kembali 30 Hari (30-Day Money Back Guarantee). Jika Anda merasa software ini tidak berfungsi sesuai dengan yang kami janjikan atau mengalami kendala teknis yang tidak dapat kami selesaikan, uang Anda akan kami kembalikan 100%.</p>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 py-12 px-6 bg-black/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex justify-center items-center">
+            <div class="text-sm text-gray-500">
+                &copy; 2026 Genie Voice Studio Inc. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Scroll Reveal Effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('py-2');
+                    navbar.querySelector('.glass-panel').classList.add('bg-dark-900/80');
+                } else {
+                    navbar.classList.remove('py-2');
+                    navbar.querySelector('.glass-panel').classList.remove('bg-dark-900/80');
+                }
+            });
+        });
+
+        // --- AUDIO PLAYER LOGIC ---
+        
+        function toggleAudio(id) {
+            const audio = document.getElementById(id);
+            const btn = document.getElementById('btn-' + id);
+            const icon = btn.querySelector('i');
+
+            // Pause all other audios first (optional, exclusive play)
+            document.querySelectorAll('audio').forEach(a => {
+                if(a.id !== id && !a.paused) {
+                    a.pause();
+                    resetUI(a.id);
+                }
+            });
+
+            if (audio.paused) {
+                audio.play();
+                icon.classList.remove('fa-play', 'ml-1');
+                icon.classList.add('fa-pause');
+            } else {
+                audio.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play', 'ml-1');
+            }
+        }
+
+        function resetUI(id) {
+            const btn = document.getElementById('btn-' + id);
+            const icon = btn.querySelector('i');
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play', 'ml-1');
+        }
+
+        function resetAudio(id) {
+            resetUI(id);
+            const progressBar = document.getElementById('progress-' + id);
+            progressBar.style.width = '0%';
+        }
+
+        function updateProgress(id) {
+            const audio = document.getElementById(id);
+            const progressBar = document.getElementById('progress-' + id);
+            const timeDisplay = document.getElementById('time-' + id);
+            
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = percent + '%';
+                
+                // Update time display (MM:SS)
+                const minutes = Math.floor(audio.currentTime / 60);
+                const seconds = Math.floor(audio.currentTime % 60);
+                timeDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        function seekAudio(event, id) {
+            const audio = document.getElementById(id);
+            const progressBarContainer = event.currentTarget;
+            const clickPosition = event.offsetX;
+            const totalWidth = progressBarContainer.clientWidth;
+            
+            if (audio.duration) {
+                const seekTime = (clickPosition / totalWidth) * audio.duration;
+                audio.currentTime = seekTime;
+            }
+        }
+    </script>
+</body>
+</html>
