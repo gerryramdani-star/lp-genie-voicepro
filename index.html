@@ -751,9 +751,17 @@
                              </div>
                          </div>
 
-                         <button class="w-full md:w-auto px-10 py-4 bg-[#FAA200] text-black font-bold rounded-full hover:scale-105 transition-transform shadow-lg shadow-orange-500/20">
+                         <!-- 
+                            TOMBOL CHECKOUT DENGAN TRACKING PIXEL 
+                            1. Ganti href="..." dengan link checkout Anda.
+                            2. Event AddToCart akan terkirim saat tombol diklik.
+                         -->
+                         <a href="https://websitepro.my.id/genievoice-form" 
+                            onclick="fbq('track', 'AddToCart', {content_name: 'Genie Voice Studio Pro', content_id: 'genie-pro-lifetime', value: 99000, currency: 'IDR'});"
+                            class="inline-flex justify-center items-center w-full md:w-auto px-10 py-4 bg-[#FAA200] text-black font-bold rounded-full hover:scale-105 transition-transform shadow-lg shadow-orange-500/20">
                              Dapatkan Akses Sekarang <i class="fas fa-arrow-right ml-2"></i>
-                         </button>
+                         </a>
+                         
                          <p class="text-xs text-gray-500 mt-4">Garansi uang kembali 30 hari.</p>
                      </div>
                 </div>
@@ -931,5 +939,3 @@
 </body>
 
 </html>
-
-
