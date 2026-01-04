@@ -40,6 +40,7 @@
             background-color: #0B0B15;
             color: #ffffff;
             overflow-x: hidden; /* Mencegah scroll horizontal */
+            width: 100%;
         }
         
         /* Glassmorphism Classes */
@@ -117,7 +118,7 @@
     <noscript>...</noscript>
     <!-- Akhir Kode Meta Pixel -->
 </head>
-<body class="antialiased selection:bg-accent selection:text-white">
+<body class="antialiased selection:bg-accent selection:text-white w-full overflow-x-hidden">
 
     <!-- Decorative Background Globs -->
     <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
@@ -143,7 +144,7 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION (ATTENTION) - Responsive Padding & Font Sizes -->
+    <!-- HERO SECTION (ATTENTION) - Added overflow-hidden -->
     <section class="relative pt-32 pb-16 px-4 md:pt-40 md:pb-20 md:px-6 overflow-hidden">
         <div class="max-w-7xl mx-auto text-center relative z-10">
             
@@ -202,8 +203,8 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: CARA KERJA (WORKFLOW) - Responsive Padding -->
-    <section id="workflow" class="py-16 px-4 md:py-20 md:px-6 relative border-b border-white/5">
+    <!-- NEW SECTION: CARA KERJA (WORKFLOW) - Added overflow-hidden -->
+    <section id="workflow" class="py-16 px-4 md:py-20 md:px-6 relative border-b border-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Mudah & Cepat</span>
@@ -255,8 +256,8 @@
         </div>
     </section>
 
-    <!-- PROBLEM & SOLUTION - Responsive Padding -->
-    <section class="py-16 px-4 md:py-20 md:px-6">
+    <!-- PROBLEM & SOLUTION - Added overflow-hidden -->
+    <section class="py-16 px-4 md:py-20 md:px-6 overflow-hidden">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Mengapa Terjebak di Masa Lalu?</h2>
@@ -324,8 +325,8 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: COCOK UNTUK SIAPA - Responsive Padding -->
-    <section id="target-audience" class="py-16 px-4 md:py-20 md:px-6 relative border-t border-white/5 bg-white/5">
+    <!-- NEW SECTION: COCOK UNTUK SIAPA - Added overflow-hidden -->
+    <section id="target-audience" class="py-16 px-4 md:py-20 md:px-6 relative border-t border-white/5 bg-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Target Pengguna</span>
@@ -371,8 +372,8 @@
         </div>
     </section>
 
-    <!-- FEATURES - Responsive Padding -->
-    <section id="features" class="py-16 px-4 md:py-20 md:px-6 relative">
+    <!-- FEATURES - Added overflow-hidden -->
+    <section id="features" class="py-16 px-4 md:py-20 md:px-6 relative overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Fitur Utama</span>
@@ -424,8 +425,8 @@
         </div>
     </section>
 
-    <!-- LIVE DEMO - Responsive Padding -->
-    <section id="demo" class="py-16 px-4 md:py-20 md:px-6 bg-black/20">
+    <!-- LIVE DEMO - Added overflow-hidden -->
+    <section id="demo" class="py-16 px-4 md:py-20 md:px-6 bg-black/20 overflow-hidden">
         <div class="max-w-5xl mx-auto">
             <div class="glass-panel rounded-3xl p-6 md:p-12 flex flex-col md:flex-row gap-10 items-center">
                 <div class="w-full md:w-1/2">
@@ -517,8 +518,8 @@
         </div>
     </section>
 
-    <!-- SHOWCASE - Responsive Padding -->
-    <section id="showcase" class="py-16 px-4 md:py-20 md:px-6 relative">
+    <!-- SHOWCASE - Added overflow-hidden -->
+    <section id="showcase" class="py-16 px-4 md:py-20 md:px-6 relative overflow-hidden">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto relative z-10">
@@ -574,8 +575,8 @@
         </div>
     </section>
 
-    <!-- TESTIMONIALS - Responsive Padding -->
-    <section id="testimonials" class="py-16 px-4 md:py-20 md:px-6 relative bg-white/5">
+    <!-- TESTIMONIALS - Added overflow-hidden -->
+    <section id="testimonials" class="py-16 px-4 md:py-20 md:px-6 relative bg-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none"></div>
 
@@ -638,7 +639,7 @@
         </div>
     </section>
 
-    <!-- PRICING - Responsive Padding & Layout Fixes -->
+    <!-- PRICING - Added overflow-hidden -->
     <section id="pricing" class="py-16 px-4 md:py-24 md:px-6 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent pointer-events-none"></div>
 
@@ -718,8 +719,8 @@
         </div>
     </section>
 
-    <!-- FAQ (PERTANYAAN UMUM) - Responsive Padding -->
-    <section id="faq" class="py-16 px-4 md:py-20 md:px-6 relative">
+    <!-- FAQ (PERTANYAAN UMUM) - Added overflow-hidden -->
+    <section id="faq" class="py-16 px-4 md:py-20 md:px-6 relative overflow-hidden">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-16">
                 <span class="text-accent text-sm font-bold tracking-wider uppercase mb-2 block">Dukungan</span>
